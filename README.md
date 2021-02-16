@@ -21,7 +21,7 @@ This part describes various ROS-related interfaces such as parameters and topics
 
 * `~d: float`
 
-    DErivative coefficient of the controller
+    Derivative coefficient of the controller
     Default: `0.05`
 
 * `~publish_rate: int`
