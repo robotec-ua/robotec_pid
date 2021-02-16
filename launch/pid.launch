@@ -1,0 +1,10 @@
+<launch>
+    <node name="pid" pkg="robotec_pid" type="pid.py" output="screen" >
+        <param name="~p" value="1.0" />
+        <param name="~i" value="1.0" />
+        <param name="~d" value="1.0" />
+        <param name="~input" value="/input" />
+        <param name="~setpoint" value="/setpoint" />
+        <param name="~adjusted" value="/adjusted" />
+    </node>
+</launch>
