@@ -2,7 +2,7 @@
 
 import rospy
 from simple_pid import PID
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Float64MultiArray
 from dynamic_reconfigure.server import Server
 
 class Node:
@@ -16,10 +16,12 @@ class Node:
         input_topic = rospy.get_param('~input') 
         adjusted_topic = rospy.get_param('~adjusted')
         setpoint_topic = rospy.get_param('~setpoint')
+        configuration_topic = rospy.get_param('~configuration')
         publish_rate = rospy.get_param('~publish_rate', 100)
 
         rospy.Subscriber(input_topic, Float64, self.inputCallback, queue_size=1)
         rospy.Subscriber(setpoint_topic, Float64, self.setpointCallback, queue_size=1)
+        rospy.Subscriber(configuration_topic, Float64MultiArray, self.configurationCallback, queue_size=1)
         self.publisher = rospy.Publisher(adjusted_topic, Float64, queue_size=1)
         
         self.message = Float64()
@@ -30,6 +32,11 @@ class Node:
         
     def inputCallback(self, msg):
         self.input = msg.data
+
+    def configurationCallback(self, msg):
+        self.pid.Kp = msg.data[0]
+        self.pid.Ki = msg.data[1]
+        self.pid.Kd = msg.data[2]
 
     def setpointCallback(self, msg):
         self.setpoint = msg.data

@@ -6,5 +6,6 @@
         <param name="~input" value="/input" />
         <param name="~setpoint" value="/setpoint" />
         <param name="~adjusted" value="/adjusted" />
+        <param name="~configuration" value="/configuration" />
     </node>
 </launch>
